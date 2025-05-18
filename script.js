@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-  Papa.parse("https://raw.githubusercontent.com/your-username/your-repository/main/data/escalation-matrix.csv", {
-    download: true,
-    header: true,
-    dynamicTyping: true,
-    complete: function(results) {
+  // Replace this with the path to your CSV file on GitHub
+  const sheetUrl = "https://raw.githubusercontent.com/your-username/your-repository/main/data/escalation-matrix.csv";
+  
+  fetch(sheetUrl)
+    .then(response => response.text())  // Fetch CSV file as text
+    .then(csv => {
+      // Parse CSV into an array of objects
+      const results = Papa.parse(csv, { header: true, dynamicTyping: true });
       populateEscalationTable(results.data);
-    }
-  });
+    });
 });
 
 // Function to populate the table

@@ -4,136 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escalation Matrix Dashboard</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: #ff0000;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-
-        h1 {
-            font-size: 36px;
-            margin: 0;
-        }
-
-        h2 {
-            font-size: 24px;
-            margin: 10px 0;
-        }
-
-        /* Table Styles */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        td {
-            text-align: center;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: #ff0000;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS file -->
 </head>
 <body>
 
-    <!-- Header Section -->
+    <!-- Header -->
     <header>
         <h1>QUANTUM HRM SYSTEMS PVT LIMITED</h1>
         <h2>Escalation Matrix</h2>
     </header>
 
-    <!-- Table Section -->
-    <div class="container">
-        <table id="matrixTable">
-            <thead>
-                <tr>
-                    <th>Department</th>
-                    <th>Escalation 1</th>
-                    <th>Mobile Number</th>
-                    <th>Email</th>
-                    <th>Escalation 2</th>
-                    <th>Mobile Number</th>
-                    <th>Email</th>
-                    <th>Escalation 3</th>
-                    <th>Mobile Number</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table rows will be dynamically inserted here -->
-            </tbody>
-        </table>
+    <!-- Main Content Container -->
+    <div class="container" id="table-container">
+        <!-- The table will be inserted here by JavaScript -->
     </div>
 
-    <!-- Footer Section -->
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 All rights reserved. QUANTUM HRM SYSTEMS PVT LIMITED</p>
     </footer>
 
-    <!-- Script to Fetch and Display CSV Data -->
+    <!-- JavaScript to fetch and display the CSV data -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
-        const tableBody = document.querySelector('#matrixTable tbody');
-
-        // GitHub URL of the raw CSV file
+        // The URL to the raw CSV file on GitHub
         const csvUrl = "https://raw.githubusercontent.com/hrmsystemsngl/matrix/main/Escalation%20Matrix%20-%2018%20may.csv";
 
-        // Fetch and parse the CSV file
-        Papa.parse(csvUrl, {
-            download: true,
-            header: true, // Use the first row as headers
-            complete: function(results) {
-                // Filter out rows where all columns are "N/A"
-                const filteredData = results.data.filter(row => !Object.values(row).every(cell => cell === "N/A"));
-
-                // Insert rows into the table
-                filteredData.forEach(row => {
-                    const tableRow = document.createElement('tr');
-                    Object.values(row).forEach(cell => {
-                        const tableCell = document.createElement('td');
-                        tableCell.textContent = cell;
-                        tableRow.appendChild(tableCell);
-                    });
-                    tableBody.appendChild(tableRow);
+        // Function to fetch and parse the CSV data
+        fetch(csvUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                return response.text();
+            })
+            .then(csvData => {
+                // Parse the CSV data using PapaParse
+                Papa.parse(csvData, {
+                    complete: function(results) {
+                        const data = results.data;
+                        console.log(data); // For debugging: Log parsed data to console
+                        // Create table dynamically
+                        createTable(data);
+                    },
+                    error: function(error) {
+                        console.error('Error parsing CSV:', error.message);
+                    }
                 });
-            },
-            error: function(error) {
-                console.error('Error loading the CSV:', error);
+            })
+            .catch(error => {
+                console.error('Error fetching the CSV file:', error);
+            });
+
+        // Function to create and display the table
+        function createTable(data) {
+            if (data.length === 0) {
+                document.getElementById('table-container').innerHTML = '<p>No data available</p>';
+                return;
             }
-        });
+
+            let tableHtml = '<table>';
+            
+            // Create table header
+            tableHtml += '<thead><tr>';
+            const headers = data[0];  // First row as headers
+            for (let header of headers) {
+                tableHtml += `<th>${header}</th>`;
+            }
+            tableHtml += '</tr></thead>';
+            
+            // Create table body
+            tableHtml += '<tbody>';
+            for (let i = 1; i < data.length; i++) {
+                tableHtml += '<tr>';
+                const row = data[i];
+                for (let cell of row) {
+                    tableHtml += `<td>${cell}</td>`;
+                }
+                tableHtml += '</tr>';
+            }
+            tableHtml += '</tbody></table>';
+
+            // Insert the table into the DOM
+            document.getElementById('table-container').innerHTML = tableHtml;
+        }
     </script>
 
 </body>

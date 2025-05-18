@@ -7,20 +7,30 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(csv => {
       // Parse CSV into an array of objects
       const results = Papa.parse(csv, { header: true, dynamicTyping: true });
-      populateEscalationTable(results.data);
+      populateEscalationCards(results.data);
     });
 });
 
-// Function to populate the table
-function populateEscalationTable(data) {
-  const tableBody = document.querySelector("#escalation-table tbody");
+// Function to populate the cards
+function populateEscalationCards(data) {
+  const container = document.querySelector("#escalation-cards");
   data.forEach((row) => {
-    const tr = document.createElement("tr");
-    Object.values(row).forEach((cell) => {
-      const td = document.createElement("td");
-      td.textContent = cell;
-      tr.appendChild(td);
-    });
-    tableBody.appendChild(tr);
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    card.innerHTML = `
+      <h3>${row.department}</h3>
+      <p><strong>Escalation 1:</strong> ${row.escalation1}</p>
+      <p><strong>Mobile:</strong> ${row.mobile1}</p>
+      <p><strong>Email:</strong> ${row.email1}</p>
+      <p><strong>Escalation 2:</strong> ${row.escalation2}</p>
+      <p><strong>Mobile:</strong> ${row.mobile2}</p>
+      <p><strong>Email:</strong> ${row.email2}</p>
+      <p><strong>Escalation 3:</strong> ${row.escalation3}</p>
+      <p><strong>Mobile:</strong> ${row.mobile3}</p>
+      <p><strong>Email:</strong> ${row.email3}</p>
+    `;
+
+    container.appendChild(card);
   });
 }

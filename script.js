@@ -1,39 +1,65 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Raw CSV URL from GitHub (use the raw version of the file)
   const sheetUrl = "https://raw.githubusercontent.com/hrmsystemsngl/matrix/main/Escalation%20Matrix%20-%20PAN%20INDIA.csv";
-
+  
   fetch(sheetUrl)
     .then(response => response.text())  // Fetch CSV file as text
     .then(csv => {
       // Parse CSV into an array of objects
       const results = Papa.parse(csv, { header: true, dynamicTyping: true });
-      populateEscalationCards(results.data);
+      populateEscalationTable(results.data);
     })
     .catch(error => {
       console.error("Error loading CSV file:", error);
     });
 });
 
-// Function to populate the cards
-function populateEscalationCards(data) {
-  const container = document.querySelector("#escalation-cards");
+// Function to populate the table
+function populateEscalationTable(data) {
+  const tableBody = document.querySelector("#escalation-table tbody");
   data.forEach((row) => {
-    const card = document.createElement("div");
-    card.classList.add("card");
+    const tr = document.createElement("tr");
 
-    card.innerHTML = `
-      <h3>${row.Department}</h3>
-      <p><strong>Escalation 1:</strong> ${row['Escalation 1']}</p>
-      <p><strong>Mobile:</strong> ${row['Mobile Number 1']}</p>
-      <p><strong>Email:</strong> ${row['Email 1']}</p>
-      <p><strong>Escalation 2:</strong> ${row['Escalation 2']}</p>
-      <p><strong>Mobile:</strong> ${row['Mobile Number 2']}</p>
-      <p><strong>Email:</strong> ${row['Email 2']}</p>
-      <p><strong>Escalation 3:</strong> ${row['Escalation 3']}</p>
-      <p><strong>Mobile:</strong> ${row['Mobile Number 3']}</p>
-      <p><strong>Email:</strong> ${row['Email 3']}</p>
-    `;
+    const department = document.createElement("td");
+    department.textContent = row.Department;
+    tr.appendChild(department);
 
-    container.appendChild(card);
+    const escalation1 = document.createElement("td");
+    escalation1.textContent = row['Escalation 1'];
+    tr.appendChild(escalation1);
+
+    const mobile1 = document.createElement("td");
+    mobile1.textContent = row['Mobile Number 1'];
+    tr.appendChild(mobile1);
+
+    const email1 = document.createElement("td");
+    email1.textContent = row['Email 1'];
+    tr.appendChild(email1);
+
+    const escalation2 = document.createElement("td");
+    escalation2.textContent = row['Escalation 2'];
+    tr.appendChild(escalation2);
+
+    const mobile2 = document.createElement("td");
+    mobile2.textContent = row['Mobile Number 2'];
+    tr.appendChild(mobile2);
+
+    const email2 = document.createElement("td");
+    email2.textContent = row['Email 2'];
+    tr.appendChild(email2);
+
+    const escalation3 = document.createElement("td");
+    escalation3.textContent = row['Escalation 3'];
+    tr.appendChild(escalation3);
+
+    const mobile3 = document.createElement("td");
+    mobile3.textContent = row['Mobile Number 3'];
+    tr.appendChild(mobile3);
+
+    const email3 = document.createElement("td");
+    email3.textContent = row['Email 3'];
+    tr.appendChild(email3);
+
+    tableBody.appendChild(tr);
   });
 }

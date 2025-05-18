@@ -70,30 +70,35 @@
         </table>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
-        // Sample Data (You can replace this with the data fetched from your CSV or GitHub repository)
-        const data = [
-            ["Department", "Escalation 1", "Mobile Number", "Email", "Escalation 2", "Mobile Number", "Email", "Escalation 3", "Mobile Number", "Email"],
-            ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"],
-            ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"],
-            ["HR", "John Doe", "1234567890", "john.doe@example.com", "Jane Smith", "0987654321", "jane.smith@example.com", "Mark Taylor", "1122334455", "mark.taylor@example.com"],
-            ["IT", "Alex Brown", "2233445566", "alex.brown@example.com", "Ella Green", "6677889900", "ella.green@example.com", "Lucas White", "3344556677", "lucas.white@example.com"]
-        ];
-
         const tableBody = document.querySelector('#matrixTable tbody');
 
-        // Filter out rows where all values are "N/A"
-        const filteredData = data.filter(row => !row.every(cell => cell === "N/A"));
+        // GitHub URL of the raw CSV file (Make sure it's the raw file URL, not the GitHub page URL)
+        const csvUrl = "https://raw.githubusercontent.com/hrmsystemsngl/matrix/main/Escalation%20Matrix%20-%20PAN%20INDIA.csv";
 
-        // Insert rows into the table
-        filteredData.forEach(row => {
-            const tableRow = document.createElement('tr');
-            row.forEach(cell => {
-                const tableCell = document.createElement('td');
-                tableCell.textContent = cell;
-                tableRow.appendChild(tableCell);
-            });
-            tableBody.appendChild(tableRow);
+        // Fetch and parse the CSV file
+        Papa.parse(csvUrl, {
+            download: true,
+            header: true, // Use the first row as headers
+            complete: function(results) {
+                // Filter out rows where all columns are "N/A"
+                const filteredData = results.data.filter(row => !Object.values(row).every(cell => cell === "N/A"));
+
+                // Insert rows into the table
+                filteredData.forEach(row => {
+                    const tableRow = document.createElement('tr');
+                    Object.values(row).forEach(cell => {
+                        const tableCell = document.createElement('td');
+                        tableCell.textContent = cell;
+                        tableRow.appendChild(tableCell);
+                    });
+                    tableBody.appendChild(tableRow);
+                });
+            },
+            error: function(error) {
+                console.error('Error loading the CSV:', error);
+            }
         });
     </script>
 

@@ -1,45 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Escalation Matrix Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Add PapaParse Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escalation Matrix Dashboard</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <!-- Header with fixed dark blue background -->
-  <header>
-    <div class="header-content">
-      <h1>QUANTUM HRM SYSTEMS PVT LIMITED</h1>
-      <h2>Escalation Matrix Dashboard</h2>
-    </div>
-  </header>
-
-  <!-- Container for the escalation matrix table -->
-  <div class="container">
-    <table id="escalation-table">
-      <thead>
-        <tr>
-          <th>Department</th>
-          <th>Escalation 1</th>
-          <th>Mobile Number</th>
-          <th>Email</th>
-          <th>Escalation 2</th>
-          <th>Mobile Number</th>
-          <th>Email</th>
-          <th>Escalation 3</th>
-          <th>Mobile Number</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Rows will be populated here -->
-      </tbody>
+    <h2>Escalation Matrix Dashboard</h2>
+    <table id="matrixTable">
+        <thead>
+            <tr>
+                <th>Department</th>
+                <th>Escalation 1</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Escalation 2</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+                <th>Escalation 3</th>
+                <th>Mobile Number</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows will be dynamically inserted here -->
+        </tbody>
     </table>
-  </div>
 
-  <script src="script.js"></script>
+    <script>
+        const data = [
+            ["Department", "Escalation 1", "Mobile Number", "Email", "Escalation 2", "Mobile Number", "Email", "Escalation 3", "Mobile Number", "Email"],
+            ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"],
+            ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
+            // More rows here
+        ];
+
+        const tableBody = document.querySelector('#matrixTable tbody');
+
+        // Filter out rows where all values are "N/A"
+        const filteredData = data.filter(row => !row.every(cell => cell === "N/A"));
+
+        // Insert rows into the table
+        filteredData.forEach(row => {
+            const tableRow = document.createElement('tr');
+            row.forEach(cell => {
+                const tableCell = document.createElement('td');
+                tableCell.textContent = cell;
+                tableRow.appendChild(tableCell);
+            });
+            tableBody.appendChild(tableRow);
+        });
+    </script>
 </body>
 </html>

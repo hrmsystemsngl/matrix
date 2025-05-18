@@ -67,3 +67,28 @@ td {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Styling for the table container to make it scrollable */
+#table-container {
+  overflow-y: auto;
+  max-height: 500px; /* Set maximum height for scrolling */
+  margin-top: 20px;
+}
+
+/* Make header row sticky */
+table thead {
+  position: sticky;
+  top: 0;
+  background-color: #005acf; /* Blue color for the header */
+  z-index: 1;
+}
+
+footer {
+  background-color: #003366; /* Dark blue background */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

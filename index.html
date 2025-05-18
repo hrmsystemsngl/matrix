@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Escalation Matrix Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Add PapaParse Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
   <!-- Header with fixed dark blue background -->
@@ -15,13 +17,29 @@
     </div>
   </header>
 
-  <!-- Container for the escalation matrix cards -->
+  <!-- Container for the escalation matrix table -->
   <div class="container">
-    <div id="escalation-cards" class="card-container">
-      <!-- Cards will be populated here -->
-    </div>
+    <table id="escalation-table">
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Escalation 1</th>
+          <th>Mobile Number</th>
+          <th>Email</th>
+          <th>Escalation 2</th>
+          <th>Mobile Number</th>
+          <th>Email</th>
+          <th>Escalation 3</th>
+          <th>Mobile Number</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be populated here -->
+      </tbody>
+    </table>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

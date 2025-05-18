@@ -5,49 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escalation Matrix Dashboard</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin: 0;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
+
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #4CAF50;
             color: white;
         }
+
+        td {
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+        }
     </style>
 </head>
 <body>
+
     <h2>Escalation Matrix Dashboard</h2>
-    <table id="matrixTable">
-        <thead>
-            <tr>
-                <th>Department</th>
-                <th>Escalation 1</th>
-                <th>Mobile Number</th>
-                <th>Email</th>
-                <th>Escalation 2</th>
-                <th>Mobile Number</th>
-                <th>Email</th>
-                <th>Escalation 3</th>
-                <th>Mobile Number</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Table rows will be dynamically inserted here -->
-        </tbody>
-    </table>
+    <div class="container">
+        <table id="matrixTable">
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Escalation 1</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                    <th>Escalation 2</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                    <th>Escalation 3</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
 
     <script>
+        // Sample Data (You can replace this with the data fetched from your CSV or GitHub repository)
         const data = [
             ["Department", "Escalation 1", "Mobile Number", "Email", "Escalation 2", "Mobile Number", "Email", "Escalation 3", "Mobile Number", "Email"],
             ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"],
-            ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
-            // More rows here
+            ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"],
+            ["HR", "John Doe", "1234567890", "john.doe@example.com", "Jane Smith", "0987654321", "jane.smith@example.com", "Mark Taylor", "1122334455", "mark.taylor@example.com"],
+            ["IT", "Alex Brown", "2233445566", "alex.brown@example.com", "Ella Green", "6677889900", "ella.green@example.com", "Lucas White", "3344556677", "lucas.white@example.com"]
         ];
 
         const tableBody = document.querySelector('#matrixTable tbody');
@@ -66,5 +96,6 @@
             tableBody.appendChild(tableRow);
         });
     </script>
+
 </body>
 </html>

@@ -32,14 +32,13 @@ header h2 {
 .container {
   margin-top: 120px; /* Adjust this margin to prevent content being hidden under the fixed header */
   padding: 20px;
-  max-width: 1000px;
-  margin: 0 auto;
-  background-color: white;
+  width: 100%; /* Make the table full width */
+  box-sizing: border-box;
 }
 
 /* Table styles */
 table {
-  width: 100%;
+  width: 100%; /* Make the table full width */
   border-collapse: collapse;
   margin-top: 20px;
 }

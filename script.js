@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
   // Raw CSV URL from GitHub (use the raw version of the file)
-  const sheetUrl = "https://raw.githubusercontent.com/hrmsystemsngl/matrix/main/Escalation%20Matrix%20-%20PAN%20INDIA.csv";
+  const sheetUrl = "https://docs.google.com/spreadsheets/d/1XY1JiQkk4QP9mftAWPId7nnmf_qVm3MT8MHUJzAC3TU/edit?gid=0#gid=0";
   
   fetch(sheetUrl)
     .then(response => response.text())  // Fetch CSV file as text

@@ -30,7 +30,7 @@ header h2 {
 
 /* Container for content below the header */
 .container {
-  margin-top: 300px; /* Adjust this margin to prevent content being hidden under the fixed header */
+  margin-top: 150px; /* Adjust this margin to prevent content being hidden under the fixed header */
   padding: 20px;
   width: 100%; /* Make the table full width */
   box-sizing: border-box;
